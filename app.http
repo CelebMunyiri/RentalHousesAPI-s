@@ -1,0 +1,14 @@
+### Register User API
+POST http://localhost:3003/house/newHouse/
+Content-Type: application/json
+
+{
+"name":"Brownstone Phase2",
+"cost":14000,
+"description":"spacious One bedrooms with swimming pool"
+}
+
+###GET ALL HOUSES API
+GET http://localhost:3003/house/allhouses
+Content-Type: application/json
+
