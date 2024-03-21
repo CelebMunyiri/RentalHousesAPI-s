@@ -3,14 +3,14 @@ const house = require("../Models/house");
 
 const createHouse=async(req,res)=>{
     try {
-        const {name,cost,description}=req.body;
-       // const isHouseinDB=house.findOne({name});
+        const {name,cost,description,images,location}=req.body;
+        const isHouseinDB=await house.findOne({name});
 
-      //  if(isHouseinDB){
-            //res.status(401).json({message:"House Already exists, add one that does not exist"});
-       // }
+       if(isHouseinDB){
+           res.status(401).json({message:"House Already exists, add one that does not exist"});
+        }
 
-const newHouse=await house.create({name,cost,description});
+const newHouse=await house.create({name,cost,description,images,location});
 
 newHouse.save();
 
@@ -26,7 +26,7 @@ const updateHouse=async(req,res)=>{
         const houseId=req.params.houseId;
         const updatedHouse=req.body;
         const theHouse=await house.findById(houseId);
-        //console.log(theHouse);
+        
 
         if(!theHouse){
             return res.status(404).json({message:"House Does Not Exist"});
@@ -35,6 +35,8 @@ const updateHouse=async(req,res)=>{
         if(updatedHouse.name)theHouse.name=updatedHouse.name
         if(updatedHouse.cost)theHouse.cost=updatedHouse.cost
         if(updatedHouse.description)theHouse.description=updatedHouse.description
+        if(updatedHouse.location)theHouse.location=updatedHouse.location
+        if(updatedHouse.images)theHouse.images=updatedHouse.images
 
         await theHouse.save();
         

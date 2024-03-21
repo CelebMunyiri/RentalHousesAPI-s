@@ -13,8 +13,10 @@ const houseSchema=new mongoose.Schema({
     },
     description:{
         type:String,
-        required:false
-    }
+        required:true
+    },
+    images:{type:Array,of:String},
+    location:{type:String,required:true}
 });
 
 module.exports=mongoose.model('houses',houseSchema);
