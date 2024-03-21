@@ -16,7 +16,7 @@ newHouse.save();
 
 res.status(200).json({message:"House Added succesfully"});
     } catch (error) {
-        console.error("There was an error",err);
+        console.error("There was an error",error);
         res.status(500).json({message:"Internal server Error"});
     }
 }
@@ -39,21 +39,35 @@ const updateHouse=async(req,res)=>{
 
         
     } catch (error) {
-        console.error("There was an error",err);
+        console.error("There was an error",error);
         return res.status(500).json({message:"Internal server Error"});
     }
 }
 
-const getHouses=async(res)=>{
+const getHouses=async(req,res)=>{
     try {
         const allHouses=await house.find({});
-        console.log(allHouses);
-        res.status(200).json(allHouses)
+        
+      return  res.status(200).json(allHouses)
         
     } catch (error) {
-        console.error("There was an error",err);
+        console.error("There was an error",error);
         res.status(500).json({message:"Internal Server Error"});
     }
 }
-
-module.exports={createHouse,updateHouse,getHouses}
+const getHouseById=async(req,res)=>{
+    try {
+        const houseid=req.params.id;
+        const theRequestedHouse=await house.findById(houseid);
+        
+        if(!theRequestedHouse){
+        return res.status(404).json({message:"The Requested House Does not exist"});
+        } 
+        res.json(theRequestedHouse);
+    } catch (error) {
+        console.error(error);
+     res.status(500).json({message:"Internal Server Error!"});
+     console.log(error.message);
+    }
+}
+module.exports={createHouse,updateHouse,getHouses,getHouseById}
