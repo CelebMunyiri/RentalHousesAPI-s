@@ -4,11 +4,11 @@ const house = require("../Models/house");
 const createHouse=async(req,res)=>{
     try {
         const {name,cost,description}=req.body;
-        const isHouseinDB=house.findOne({name});
+       // const isHouseinDB=house.findOne({name});
 
-        if(isHouseinDB){
-            res.status(401).json({message:"House Already exists, add one that does not exist"});
-        }
+      //  if(isHouseinDB){
+            //res.status(401).json({message:"House Already exists, add one that does not exist"});
+       // }
 
 const newHouse=await house.create({name,cost,description});
 

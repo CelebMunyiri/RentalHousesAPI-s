@@ -21,7 +21,7 @@ mongoose.connection.on('error',(err)=>{
 })
 
 const PORT=config.port ;
-
+console.log(PORT);
 app.listen(PORT,()=>{
     console.log(`Server is Running on Port ${PORT}`);
 });
