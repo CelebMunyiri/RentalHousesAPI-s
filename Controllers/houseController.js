@@ -26,18 +26,20 @@ const updateHouse=async(req,res)=>{
         const houseId=req.params.houseId;
         const updatedHouse=req.body;
         const theHouse=await house.findById(houseId);
+        //console.log(theHouse);
 
         if(!theHouse){
             return res.status(404).json({message:"House Does Not Exist"});
         }
         
-        if(updatedHouse.name)theHouse.name=updatedHouse.name;
-        if(updatedHouse.cost)theHouse.cost=updatedHouse.cost;
-        if(updatedHouse.description)theHouse.description=updatedHouse.description;
+        if(updatedHouse.name)theHouse.name=updatedHouse.name
+        if(updatedHouse.cost)theHouse.cost=updatedHouse.cost
+        if(updatedHouse.description)theHouse.description=updatedHouse.description
 
-        await house.save;
-
+        await theHouse.save();
         
+
+        return res.status(200).json({message:"House details updated as success"});
     } catch (error) {
         console.error("There was an error",error);
         return res.status(500).json({message:"Internal server Error"});

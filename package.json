@@ -11,8 +11,7 @@
     "nodemon": "^3.1.0"
   },
   "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon server.js"
+    "start": "nodemon server.js"
   },
   "name": "newproject",
   "version": "1.0.0",
