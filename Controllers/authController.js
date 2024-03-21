@@ -1,7 +1,7 @@
 const bcrypt=require('bcrypt');
 const jwt=require('jsonwebtoken');
-const users = require('../Models/auth');
-const mongoose=require('mongoose');
+const User = require('../Models/auth');
+
 
 
 const registerUser = async (req, res) => {
@@ -15,8 +15,8 @@ const registerUser = async (req, res) => {
        //     res.status(400).send({message:"User Already Exists"})
        // } else{
             const hashedPassword=await bcrypt.hash(password,8)
-            const newUser=await users.create({username,email,password:hashedPassword});
-            newUser.save()
+            let newUser= User.create({username,email,password:hashedPassword});
+            await newUser.save()
 
             res.status(200).send({message:"User Registered Successfully"})
       //  }
@@ -30,7 +30,7 @@ const loginUser=async(req,res)=>{
     try {
         const {email,password}=req.body;
         //finding the user by email
-        const User=await users.findOne({email});
+        const User=await User.findOne({email});
 
         if(!User){
             return res.status(401).json({error:"Invalid details"});
