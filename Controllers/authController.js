@@ -15,8 +15,8 @@ const registerUser = async (req, res) => {
        //     res.status(400).send({message:"User Already Exists"})
        // } else{
             const hashedPassword=await bcrypt.hash(password,8)
-            let newUser= User.create({username,email,password:hashedPassword});
-            await newUser.save()
+            let newUser=await User.create({username,email,password:hashedPassword});
+            newUser.save()
 
             res.status(200).send({message:"User Registered Successfully"})
       //  }
