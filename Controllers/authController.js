@@ -5,18 +5,25 @@ const user = require('../Models/users');
 
 const registerUser=async(req,res)=>{
     try {
-        const userData=req.body;
-        const newUser= new user(userData);
+        const {username,email,password}=req.body;
+       
 
         //hashing password
         const salt=await bcrypt.genSalt(8);
-        const hashedPassword=await bcrypt.hash(newUser.password,salt);
-        newUser.password=hashedPassword;
+        const hashedPassword=await bcrypt.hash(password,salt);
+        //newUser.password=hashedPassword;
+        const usersDB=await user.findOne({$or:[{username},{email}]})
 
-        await newUser.save();
+        if(usersDB){
+            res.status(400).send({message:"User Already Exists"})
+        } else{
 
-         res.status(201).json({message:"registration Succesful"});
+        const newUser=await user.create({email,username,password:hashedPassword});
 
+        newUser.save();
+
+        return res.status(201).json({message:"registration Succesful"});
+        }
     } catch (error) {
         console.error("registration is failing",error);
          res.status(500).json({message:"Registration Failed"});
