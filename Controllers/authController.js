@@ -1,42 +1,38 @@
 const bcrypt=require('bcrypt');
 const jwt=require('jsonwebtoken');
-const user = require('../Models/users');
+const users = require('../Models/users');
+const mongoose=require('mongoose');
 
 
-const registerUser=async(req,res)=>{
+const registerUser = async (req, res) => {
     try {
-        const {username,email,password}=req.body;
-       
+        const {username,password,email}=req.body
+        
 
-        //hashing password
-        const salt=await bcrypt.genSalt(8);
-        const hashedPassword=await bcrypt.hash(password,salt);
-        //newUser.password=hashedPassword;
-        const usersDB=await user.findOne({$or:[{username},{email}]})
+      //  const usersDB=await user.findOne({$or:[{username},{email}]})
 
-        if(usersDB){
-            res.status(400).send({message:"User Already Exists"})
-        } else{
+       // if(usersDB){
+       //     res.status(400).send({message:"User Already Exists"})
+       // } else{
+            const hashedPassword=await bcrypt.hash(password,8)
+            const newUser=await users.create({username,email,password:hashedPassword});
+            newUser.save()
 
-        const newUser=await user.create({email,username,password:hashedPassword});
-
-        newUser.save();
-
-        return res.status(201).json({message:"registration Succesful"});
-        }
+            res.status(200).send({message:"User Registered Successfully"})
+      //  }
+        
     } catch (error) {
-        console.error("registration is failing",error);
-         res.status(500).json({message:"Registration Failed"});
+        return res.status(500).json({Error:error.message})
     }
-}
+};
 
 const loginUser=async(req,res)=>{
     try {
         const {email,password}=req.body;
         //finding the user by email
-        const User=await user.findOne({email});
+        const User=await users.findOne({email});
 
-        if(!user){
+        if(!User){
             return res.status(401).json({error:"Invalid details"});
         }
         //comparing if passwords match
@@ -46,9 +42,9 @@ const loginUser=async(req,res)=>{
             return res.status(401).json({error:"Invalid Password"});
         }
         //creating a token
-        const token =jwt.sign({userId: user._id,userEmail:user.email},process.env.jwtSecret)
+        const token =jwt.sign({userId: User._id,userEmail:User.email},process.env.jwtSecret)
 
-res.status(200).json({token,userId})
+res.status(200).json({token,User})
     } catch (error) {
         console.error("Login failed");
         return res.status(500).json({message:"Error logging you in"});

@@ -6,25 +6,10 @@ type:String,
 required:true,
 unique:true
     },
-    email: {
-        type: String,
-        required: true,
-        unique: true,
-        validate: {
-          validator: function(v) {
-            // Basic email format validation
-            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
-          },
-          message: props => `${props.value} is not a valid email address!`,
-        },
-      },
-      password: {
-        type: String,
-        required: true,
-      },
-    }, { timestamps: true
-    
-})
+    username:{type:mongoose.SchemaTypes.String,required:true,unique:true},
+    email:{type:mongoose.SchemaTypes.String,unique:true},
+    password:{type:mongoose.SchemaTypes.String,required:true},
+  })
 
-const users=mongoose.model('users',userSchema)
+const users=mongoose.model('user',userSchema)
 module.exports={users};
