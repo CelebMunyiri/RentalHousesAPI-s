@@ -1,7 +1,8 @@
 const bcrypt=require('bcrypt');
 const jwt=require('jsonwebtoken');
 const User = require('../Models/auth');
-
+const dotenv=require('dotenv');
+dotenv.config();
 
 
 const registerUser = async (req, res) => {
@@ -30,24 +31,24 @@ const loginUser=async(req,res)=>{
     try {
         const {email,password}=req.body;
         //finding the user by email
-        const User=await User.findOne({email});
+        const UserLogin=await User.findOne({email});
 
-        if(!User){
+        if(!UserLogin){
             return res.status(401).json({error:"Invalid details"});
         }
         //comparing if passwords match
-        const passwordMatch=await bcrypt.compare(password,User.password);
+        const passwordMatch=await bcrypt.compare(password,UserLogin.password);
 
         if(!passwordMatch){
             return res.status(401).json({error:"Invalid Password"});
         }
         //creating a token
-        const token =jwt.sign({userId: User._id,userEmail:User.email},process.env.jwtSecret)
+        const token =jwt.sign({_id: User._id,email:UserLogin.email},process.env.jwtSecret)
 
-res.status(200).json({token,User})
+res.status(200).json({token,UserLogin})
     } catch (error) {
         console.error("Login failed");
-        return res.status(500).json({message:"Error logging you in"});
+        return res.status(500).json({message:"Error logging you in",Error:error.message});
     }
 }
 
