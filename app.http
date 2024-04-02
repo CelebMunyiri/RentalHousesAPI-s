@@ -5,8 +5,12 @@ Content-Type: application/json
 {
 "name":"Brownstone Phase2",
 "cost":14000,
-"description":"spacious One bedrooms with swimming pool"
+"description":"spacious One bedrooms with swimming pool",
+"location":"Kamuru",
+"images":["https://house.jpg","house2.jpg"]
 }
+
+
 
 ###GET ALL HOUSES API
 GET http://localhost:3003/house/allhouses
