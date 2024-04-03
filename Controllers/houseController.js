@@ -1,4 +1,36 @@
 const house = require("../Models/house");
+const dotenv = require('dotenv');
+dotenv.config();
+
+const http = require('http');
+const socketIo = require('socket.io');
+const express = require('express');
+const app = express();
+const server = http.createServer(app);
+const io = socketIo(server);
+
+
+io.on('connection', (socket) => {
+  console.log('New client connected');
+
+  // Emit event for new ticket
+  socket.on('newHouse', () => {
+    socket.broadcast.emit('newTicket');
+  });
+
+  // Emit event for status change
+  socket.on('statusChange', () => {
+    socket.broadcast.emit('statusChange');
+  });
+
+  socket.on('disconnect', () => {
+    console.log('Client disconnected');
+  });
+});
+
+app.use(express.json());
+
+
 
 
 const createHouse=async(req,res)=>{
@@ -14,6 +46,7 @@ const newHouse=await house.create({name,cost,description,images,location});
 
 newHouse.save();
 
+io.emit('house_created', newHouse);
 res.status(200).json({message:"House Added succesfully"});
     } catch (error) {
         console.error("There was an error",error);
@@ -40,7 +73,7 @@ const updateHouse=async(req,res)=>{
 
         await theHouse.save();
         
-
+        io.emit('house_updated', theHouse);
         return res.status(200).json({message:"House details updated as success"});
     } catch (error) {
         console.error("There was an error",error);
@@ -48,17 +81,20 @@ const updateHouse=async(req,res)=>{
     }
 }
 
-const getHouses=async(req,res)=>{
+const getHouses = async(req,res)=>{
     try {
         const allHouses=await house.find({});
-        
-      return  res.status(200).json(allHouses)
+
+        if(!allHouses) {
+            res.status(404).send({message:"Houses not found"});
+        }
+        res.status(200).json({allHouses});
         
     } catch (error) {
         console.error("There was an error",error);
         res.status(500).json({message:"Internal Server Error"});
     }
-}
+};
 const getHouseById=async(req,res)=>{
     try {
         const houseid=req.params.id;
