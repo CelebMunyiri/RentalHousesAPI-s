@@ -1,4 +1,14 @@
 ### Register User API
+POST http://localhost:3003/user/register
+Content-Type: application/json
+
+{
+    "username": "Johnt",
+    "email": "davidmunyiri34@gmail.com",
+    "password": "1234davy"
+}
+
+### Create house API
 POST http://localhost:3003/house/newHouse/
 Content-Type: application/json
 
