@@ -7,12 +7,12 @@ const createHouse=async(req,res)=>{
         const isHouseinDB=await house.findOne({name});
 
        if(isHouseinDB){
-           res.status(401).json({message:"House Already exists, add one that does not exist"});
+         return  res.status(401).json({message:"House Already exists, add one that does not exist"});
         }
 
 const newHouse=await house.create({name,cost,description,images,location});
 
-newHouse.save();
+await newHouse.save();
 
 res.status(200).json({message:"House Added succesfully"});
     } catch (error) {

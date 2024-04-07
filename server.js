@@ -6,6 +6,8 @@ const { houseRoute } = require('./Routes/houseRoutes');
 const { router } = require('./Routes/authRoutes');
 const app=express();
 
+const client=redis.createClient();
+
 
 
 mongoose.connect(config.db.url,{
