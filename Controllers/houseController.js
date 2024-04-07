@@ -88,6 +88,12 @@ const getHouses = async(req,res)=>{
         const limit=req.query.limit*1 || 3; //The *1 converts the string to type number
         const skip=(page-1)* limit;
         query=query.skip(skip).limit(limit);
+        if(req.query.page){
+            let housesCount=await house.countDocuments();
+            if(skip>=housesCount){
+                throw new Error("Page not found");
+            }
+        }
 
         const allHouses=await query;
 
