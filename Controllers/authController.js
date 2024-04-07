@@ -5,22 +5,24 @@ const dotenv=require('dotenv');
 dotenv.config();
 
 
+
+
 const registerUser = async (req, res) => {
     try {
         const {username,password,email}=req.body
         
 
-      //  const usersDB=await user.findOne({$or:[{username},{email}]})
+       const usersInDB=await User.findOne({$or:[{username},{email}]})
 
-       // if(usersDB){
-       //     res.status(400).send({message:"User Already Exists"})
-       // } else{
+     if(usersInDB){
+            res.status(400).send({message:"User Already Exists"})
+        } else{
             const hashedPassword=await bcrypt.hash(password,8)
             let newUser=await User.create({username,email,password:hashedPassword});
             newUser.save()
 
             res.status(200).send({message:"User Registered Successfully"})
-      //  }
+        }
         
     } catch (error) {
         return res.status(500).json({Error:error.message})
@@ -49,6 +51,31 @@ res.status(200).json({token,UserLogin})
     } catch (error) {
         console.error("Login failed");
         return res.status(500).json({message:"Error logging you in",Error:error.message});
+    }
+}
+
+const updateUserDetals=async(req,res)=>{
+    try {
+        const userId=req.params.id;
+        const detailsToUpdate=req.body;
+
+        const isUserAvailable=await User.findById(userId);
+
+        if(!isUserAvailable){
+            return res.status(400).json({message:"This user Does not Exist"});
+
+        } else{
+            if(detailsToUpdate.username)isUserAvailable.username=detailsToUpdate.username;
+            if(detailsToUpdate.email)isUserAvailable.email=detailsToUpdate.email;
+
+            detailsToUpdate.save;
+
+            return res.status(201).json({message:"details updated Succesfully"});
+        }
+        
+    } catch (error) {
+        console.error(error.message);
+        return res.status(500).json({message:"Internal Server Error"});
     }
 }
 
