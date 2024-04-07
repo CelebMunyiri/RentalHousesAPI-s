@@ -15,7 +15,7 @@ io.on('connection', (socket) => {
 
   // Emit event for new ticket
   socket.on('newHouse', () => {
-    socket.broadcast.emit('newTicket');
+    socket.broadcast.emit('newHouse');
   });
 
   // Emit event for status change
@@ -83,7 +83,13 @@ const updateHouse=async(req,res)=>{
 
 const getHouses = async(req,res)=>{
     try {
-        const allHouses=await house.find({});
+        let query=house.find({});
+        const page=req.query.page*1 || 1;
+        const limit=req.query.limit*1 || 3; //The *1 converts the string to type number
+        const skip=(page-1)* limit;
+        query=query.skip(skip).limit(limit);
+
+        const allHouses=await query;
 
         if(!allHouses) {
             res.status(404).send({message:"Houses not found"});
@@ -94,6 +100,7 @@ const getHouses = async(req,res)=>{
         console.error("There was an error",error);
         res.status(500).json({message:"Internal Server Error"});
     }
+    
 };
 const getHouseById=async(req,res)=>{
     try {
