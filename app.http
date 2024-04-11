@@ -3,8 +3,17 @@ POST http://localhost:3003/user/register
 Content-Type: application/json
 
 {
-    "username": "Dev AbdulRaheem",
-    "email": "davidmunyiri@outlook.com",
+    "username": "Developer AbdulRaheem",
+    "email": "davidkanyiri@outlook.com",
+    "password": "1234davy"
+}
+
+### Login User API
+POST http://localhost:3003/user/login 
+Content-Type: application/json
+
+{
+ "email": "davidkanyiri@outlook.com",
     "password": "1234davy"
 }
 
@@ -25,4 +34,5 @@ Content-Type: application/json
 ###GET ALL HOUSES API
 GET http://localhost:3003/house/allhouses
 Content-Type: application/json
+token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRhdmlka2FueWlyaUBvdXRsb29rLmNvbSIsImlhdCI6MTcxMjgyNzY5MH0.6_HWeXs7rV1LbzcEKgTt-pQiXdWnIxHaNgvchyOQbQQ
 
