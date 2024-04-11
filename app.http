@@ -32,7 +32,13 @@ Content-Type: application/json
 
 
 ###GET ALL HOUSES API
-GET http://localhost:3003/house/allhouses/?page=1&limit=2
+GET http://localhost:3003/house/allhouses/?page=1&limit=10
 Content-Type: application/json
 token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRhdmlka2FueWlyaUBvdXRsb29rLmNvbSIsImlhdCI6MTcxMjgyNzY5MH0.6_HWeXs7rV1LbzcEKgTt-pQiXdWnIxHaNgvchyOQbQQ
+
+
+###DELETE A HOUSE
+DELETE http://localhost:3003/house/remove/65faafdaf34cb55eb2bc2eda
+Content-Type: application/json
+
 

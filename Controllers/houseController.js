@@ -1,5 +1,6 @@
 const house = require("../Models/house");
 const dotenv = require('dotenv');
+const {success,error}=require('../Utils/responses')
 dotenv.config();
 
 const http = require('http');
@@ -93,7 +94,7 @@ const getHouses = async(req,res)=>{
 
         const allHouses=await query;
 
-        if(!allHouses) {
+        if(!allHouses || allHouses.length==0) {
             res.status(404).send({message:"Houses not found"});
         }
         res.status(200).json({allHouses});
@@ -119,16 +120,17 @@ const getHouseById=async(req,res)=>{
     }
 }
 const removeHouse=async(req,res)=>{
-    const id=req.params.id;
     try{
+const id=req.params.id;
+
 const deletedHouse=await house.findByIdAndDelete(id);
 if(!deletedHouse) {
     res.status(404).send({message:"House not found"});
 }
-res.status(200).json(success("House deleted successfully"))
+res.status(200).json({message:"House deleted successfully"});
     } catch(err){
 console.error(err.message);
-res.status(500).json(error("Failed to delete house"));
+res.status(500).json({message:"Failed to delete house"});
     }
 }
 module.exports={createHouse,
