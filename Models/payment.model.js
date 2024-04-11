@@ -1,6 +1,6 @@
 const mongoose=require('mongoose');
 
-const paymentSchema=mongoose.model({
+const paymentSchema=new mongoose.Schema({
     amount:{
         type:Number,
         required:true
