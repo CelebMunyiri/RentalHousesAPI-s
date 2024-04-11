@@ -12,7 +12,9 @@
     "mongoose": "^8.2.2",
     "nodemon": "^3.1.0",
     "redis": "^4.6.13",
-    "socket.io": "^4.7.5"
+    "socket.io": "^4.7.5",
+    "validate": "^5.2.0",
+    "validator": "^13.11.0"
   },
   "scripts": {
     "start": "nodemon server.js",
