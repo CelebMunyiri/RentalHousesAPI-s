@@ -1,5 +1,6 @@
 const dotenv=require('dotenv');
 dotenv.config();
+const payment=require('../Models/payment.model');
 const stripe =require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 const chargeClient=async(req,res)=>{
@@ -12,14 +13,15 @@ const chargeClient=async(req,res)=>{
             source: token.id, 
             description: 'Charge for test@example.com',
           });
-          res.status(200).json(charge);
+          
+          res.status(200).json({message:"Payment Succesful",charge});
     } catch(err){
         console.error('Error processing payment:', err);
-    let message = 'An error occurred while processing your payment.';
-
+    
     if (err.type === 'StripeCardError') {
       message = err.message;
     }
+    res.status(500).json({message:"Failed to complete  payment"});
 }
 }
 
