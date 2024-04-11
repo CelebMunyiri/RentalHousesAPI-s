@@ -7,6 +7,7 @@ const cors=require('cors');
 const config = require('./Config/config');
 const { houseRoute } = require('./Routes/houseRoutes');
 const { router } = require('./Routes/authRoutes');
+const { route } = require('./Routes/paymentRoute');
 const app=express();
 
 const client=redis.createClient();
@@ -40,6 +41,7 @@ app.use(express.urlencoded({extended:true}))
 
 app.use('/house',houseRoute);
 app.use('/user',router);
+app.use('/payment',route)
 
 app.listen(PORT,()=>{
     console.log(`Server is Running on Port ${PORT}`);

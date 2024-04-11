@@ -10,9 +10,11 @@
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.5.0",
     "mongoose": "^8.2.2",
+    "nodemailer": "^6.9.13",
     "nodemon": "^3.1.0",
     "redis": "^4.6.13",
     "socket.io": "^4.7.5",
+    "stripe": "^15.0.0",
     "validate": "^5.2.0",
     "validator": "^13.11.0"
   },
