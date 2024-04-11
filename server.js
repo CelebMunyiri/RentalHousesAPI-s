@@ -10,6 +10,8 @@ const { router } = require('./Routes/authRoutes');
 const { route } = require('./Routes/paymentRoute');
 const app=express();
 
+const client=redis.createClient();
+
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));

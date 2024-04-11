@@ -16,7 +16,7 @@ io.on('connection', (socket) => {
 
   // Emit event for new ticket
   socket.on('newHouse', () => {
-    socket.broadcast.emit('newTicket');
+    socket.broadcast.emit('newHouse');
   });
 
   // Emit event for status change
@@ -40,12 +40,12 @@ const createHouse=async(req,res)=>{
         const isHouseinDB=await house.findOne({name});
 
        if(isHouseinDB){
-           res.status(401).json({message:"House Already exists, add one that does not exist"});
+         return  res.status(401).json({message:"House Already exists, add one that does not exist"});
         }
 
 const newHouse=await house.create({name,cost,description,images,location});
 
-newHouse.save();
+await newHouse.save();
 
 io.emit('house_created', newHouse);
 res.status(200).json({message:"House Added succesfully"});
@@ -86,13 +86,21 @@ const getHouses = async(req,res)=>{
     try {
         let query=house.find({});
         const page=req.query.page*1 || 1;
+
         const limit=req.query.limit*1 || 10;
-
-        const skip=(page-1)*limit;
-
+      
+        
+        const skip=(page-1)* limit;
         query=query.skip(skip).limit(limit);
+        if(req.query.page){
+            let housesCount=await house.countDocuments();
+            if(skip>=housesCount){
+                throw new Error("Page not found");
+            }
+        }
 
         const allHouses=await query;
+
 
         if(!allHouses || allHouses.length==0) {
             res.status(404).send({message:"Houses not found"});
@@ -103,6 +111,7 @@ const getHouses = async(req,res)=>{
         console.error("There was an error",error);
         res.status(500).json({message:"Internal Server Error"});
     }
+    
 };
 const getHouseById=async(req,res)=>{
     try {

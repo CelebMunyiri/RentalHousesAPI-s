@@ -22,11 +22,11 @@ POST http://localhost:3003/house/newHouse/
 Content-Type: application/json
 
 {
-"name":"Brownstone Phase2",
-"cost":14000,
-"description":"spacious One bedrooms with swimming pool",
-"location":"Kamuru",
-"images":["https://house.jpg","house2.jpg"]
+"name":"Bethsaida",
+"cost":21000,
+"description":"Well constructed 1 bedrooms for family",
+"location":"Lower Kabete",
+"images":["https://cdn.pixabay.com/photo/2016/09/19/17/16/beautiful-home-1680793_640.jpg","house2.jpg"]
 }
 
 
