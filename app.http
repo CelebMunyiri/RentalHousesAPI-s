@@ -32,7 +32,7 @@ Content-Type: application/json
 
 
 ###GET ALL HOUSES API
-GET http://localhost:3003/house/allhouses
+GET http://localhost:3003/house/allhouses/?page=1&limit=2
 Content-Type: application/json
 token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRhdmlka2FueWlyaUBvdXRsb29rLmNvbSIsImlhdCI6MTcxMjgyNzY5MH0.6_HWeXs7rV1LbzcEKgTt-pQiXdWnIxHaNgvchyOQbQQ
 

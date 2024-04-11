@@ -83,7 +83,15 @@ const updateHouse=async(req,res)=>{
 
 const getHouses = async(req,res)=>{
     try {
-        const allHouses=await house.find({});
+        let query=house.find({});
+        const page=req.query.page*1 || 1;
+        const limit=req.query.limit*1 || 10;
+
+        const skip=(page-1)*limit;
+
+        query=query.skip(skip).limit(limit);
+
+        const allHouses=await query;
 
         if(!allHouses) {
             res.status(404).send({message:"Houses not found"});
@@ -110,4 +118,22 @@ const getHouseById=async(req,res)=>{
      console.log(error.message);
     }
 }
-module.exports={createHouse,updateHouse,getHouses,getHouseById}
+const removeHouse=async(req,res)=>{
+    const id=req.params.id;
+    try{
+const deletedHouse=await house.findByIdAndDelete(id);
+if(!deletedHouse) {
+    res.status(404).send({message:"House not found"});
+}
+res.status(200).json(success("House deleted successfully"))
+    } catch(err){
+console.error(err.message);
+res.status(500).json(error("Failed to delete house"));
+    }
+}
+module.exports={createHouse,
+    updateHouse,
+    getHouses,
+    getHouseById,
+removeHouse
+}
