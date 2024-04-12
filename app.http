@@ -3,8 +3,9 @@ POST http://localhost:3003/user/register
 Content-Type: application/json
 
 {
-    "username": "Developer AbdulRaheem",
-    "email": "davidkanyiri@outlook.com",
+    "username": "Meshack",
+    "email": "mesho@gmail.com",
+    "role":"landlord",
     "password": "1234davy"
 }
 
@@ -13,9 +14,15 @@ POST http://localhost:3003/user/login
 Content-Type: application/json
 
 {
- "email": "davidkanyiri@outlook.com",
+ "email": "samido@gmail.com",
     "password": "1234davy"
 }
+
+
+###De-activate User Account API
+
+PUT http://localhost:3003/user/deactivate/6618e71b29af153c4058a933
+Content-Type: application/json
 
 ### Create house API
 POST http://localhost:3003/house/newHouse/
@@ -42,3 +49,16 @@ DELETE http://localhost:3003/house/remove/65faafdaf34cb55eb2bc2eda
 Content-Type: application/json
 
 
+
+###Update house details API 
+PUT http://localhost:3003/house/updateHouse/65fab06ff34cb55eb2bc2edd
+Content-Type: application/json
+userId:6618fe685380540cb07b043d
+
+
+
+{
+    "name":"Epic gathiga Ridge",
+    "cost":21000,
+    "description":"Well constructed 1 bedrooms for family and single family"
+}
