@@ -3,8 +3,9 @@ POST http://localhost:3003/user/register
 Content-Type: application/json
 
 {
-    "username": "Developer AbdulRaheem",
-    "email": "davidkanyiri@outlook.com",
+    "username": "Samido",
+    "email": "samido@gmail.com",
+    "role":"user",
     "password": "1234davy"
 }
 
@@ -13,9 +14,15 @@ POST http://localhost:3003/user/login
 Content-Type: application/json
 
 {
- "email": "davidkanyiri@outlook.com",
+ "email": "samido@gmail.com",
     "password": "1234davy"
 }
+
+
+###De activate User Account API
+
+PUT http://localhost:3003/user/deactivate/6618e71b29af153c4058a933
+Content-Type: application/json
 
 ### Create house API
 POST http://localhost:3003/house/newHouse/
