@@ -24,7 +24,7 @@ const registerUser = async (req, res) => {
             newUser.save();
             sendEmail(email,'Welcome To HomeQuest','Registration Succesful, Welcome to HomeQuest');
 
-            res.status(200).send(success("User Registered Successfully",newUser));
+            res.status(200).send(success(newUser,"User Registered Successfully"));
         }
         
     } catch (error) {

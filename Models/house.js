@@ -8,15 +8,15 @@ const houseSchema=new mongoose.Schema({
     },
     cost:{
         type:Number,
-        required:true
+        
 
     },
     description:{
         type:String,
-        required:true
+        
     },
     images:{type:Array,of:String},
-    location:{type:String,required:true}
+    location:{type:String}
 });
 
 module.exports=mongoose.model('houses',houseSchema);
