@@ -9,7 +9,6 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIo(server);
 
-
 io.on('connection', (socket) => {
   console.log('New client connected');
 
@@ -29,9 +28,6 @@ io.on('connection', (socket) => {
 });
 
 app.use(express.json());
-
-
-
 
 const createHouse=async(req,res)=>{
     try {
