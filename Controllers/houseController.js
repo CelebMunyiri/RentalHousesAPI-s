@@ -1,5 +1,6 @@
 const house = require("../Models/house");
 const dotenv = require('dotenv');
+const {success,error}=require('../Utils/responses')
 dotenv.config();
 
 const http = require('http');
@@ -52,6 +53,7 @@ res.status(200).json({message:"House Added succesfully"});
 
 const updateHouse=async(req,res)=>{
     try {
+        const userId=req.body;
         const houseId=req.params.houseId;
         const updatedHouse=req.body;
         const theHouse=await house.findById(houseId);
@@ -81,7 +83,10 @@ const getHouses = async(req,res)=>{
     try {
         let query=house.find({});
         const page=req.query.page*1 || 1;
-        const limit=req.query.limit*1 || 3; //The *1 converts the string to type number
+
+        const limit=req.query.limit*1 || 10;
+      
+        
         const skip=(page-1)* limit;
         query=query.skip(skip).limit(limit);
         if(req.query.page){
@@ -93,7 +98,8 @@ const getHouses = async(req,res)=>{
 
         const allHouses=await query;
 
-        if(!allHouses) {
+
+        if(!allHouses || allHouses.length==0) {
             res.status(404).send({message:"Houses not found"});
         }
         res.status(200).json({allHouses});
@@ -119,4 +125,23 @@ const getHouseById=async(req,res)=>{
      console.log(error.message);
     }
 }
-module.exports={createHouse,updateHouse,getHouses,getHouseById}
+const removeHouse=async(req,res)=>{
+    try{
+const id=req.params.id;
+
+const deletedHouse=await house.findByIdAndDelete(id);
+if(!deletedHouse) {
+    res.status(404).send({message:"House not found"});
+}
+res.status(200).json({message:"House deleted successfully"});
+    } catch(err){
+console.error(err.message);
+res.status(500).json({message:"Failed to delete house"});
+    }
+}
+module.exports={createHouse,
+    updateHouse,
+    getHouses,
+    getHouseById,
+removeHouse
+}
