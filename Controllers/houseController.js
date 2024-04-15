@@ -57,7 +57,7 @@ res.status(200).json({message:"House Added succesfully"});
 
 const updateHouse=async(req,res)=>{
     try {
-        const userId=req.body;
+        
         const houseId=req.params.houseId;
         const updatedHouse=req.body;
         const theHouse=await house.findById(houseId);

@@ -8,8 +8,6 @@ const houseSchema=new mongoose.Schema({
     },
     cost:{
         type:Number,
-        
-
     },
     description:{
         type:String,

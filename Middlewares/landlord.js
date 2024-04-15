@@ -5,7 +5,7 @@ async function verifyRoleAsLandlord(req,res,next){
         const userId  = req.headers['user-id'];
 
         const isUserLandLord=await User.findById(userId);
-        console.log(isUserLandLord);
+        
         if(isUserLandLord.role=='landlord'){
             
             next();
