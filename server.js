@@ -12,6 +12,12 @@ const app=express();
 
 const client=redis.createClient();
 
+client.on('error', err => console.log('Redis Client Error', err));
+
+client.connect(()=>{
+console.log("Redis connected successfully");
+});
+
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
