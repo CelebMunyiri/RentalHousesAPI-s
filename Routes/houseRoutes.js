@@ -9,7 +9,7 @@ const houseRoute=express.Router();
 houseRoute.get('/oneHouse/:id',getHouseById);
 houseRoute.post('/newHouse',createHouse);
 houseRoute.put('/updateHouse/:houseId',verifyRoleAsLandlord,updateHouse);
-houseRoute.get('/allhouses',verifyToken,getHouses);
+houseRoute.get('/allhouses',getHouses);
 houseRoute.delete('/remove/:id',removeHouse);
 
 module.exports={houseRoute};
