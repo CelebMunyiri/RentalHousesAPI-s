@@ -49,10 +49,10 @@ app.use('/house',houseRoute);
 app.use('/user',router);
 //app.use('/payment',route)
 
-app.listen(PORT,()=>{
+const server=app.listen(PORT,()=>{
     console.log(`Server is Running on Port ${PORT}`);
 });
 
-module.exports=app;
+module.exports={app,server};
 
 
