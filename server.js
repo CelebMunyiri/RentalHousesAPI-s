@@ -38,8 +38,8 @@ mongoose.connection.on('error',(err)=>{
     console.error("There is an error:",err);
 })
 
-const PORT=config.port ;
-console.log(PORT);
+const PORT=config.port || 3005;
+
 
 
 app.use(express.json())
@@ -47,10 +47,12 @@ app.use(express.urlencoded({extended:true}))
 
 app.use('/house',houseRoute);
 app.use('/user',router);
-app.use('/payment',route)
+//app.use('/payment',route)
 
-app.listen(PORT,()=>{
+const server=app.listen(PORT,()=>{
     console.log(`Server is Running on Port ${PORT}`);
 });
+
+module.exports={app,server};
 
 

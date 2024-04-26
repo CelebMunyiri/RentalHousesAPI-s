@@ -44,7 +44,7 @@ const newHouse=await house.create({name,cost,description,images,location});
 await newHouse.save();
 
 io.emit('house_created', newHouse);
-res.status(200).json({message:"House Added succesfully"});
+res.status(201).json({message:"House Added succesfully"});
     } catch (error) {
         console.error("There was an error",error);
         res.status(500).json({message:"Internal server Error"});
