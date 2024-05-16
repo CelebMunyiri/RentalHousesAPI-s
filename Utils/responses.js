@@ -6,7 +6,7 @@ module.exports = {
         message,
       };
     },
-    error: (message) => {
+    error: (message='') => {
       return {
         success: false,
         message,

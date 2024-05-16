@@ -4,5 +4,6 @@ module.exports={
     port: process.env.port,
     db:{
         url:process.env.MONGO_URL
+
     },
 }

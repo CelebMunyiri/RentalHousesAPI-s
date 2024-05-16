@@ -12,6 +12,12 @@ const app=express();
 
 const client=redis.createClient();
 
+client.on('error', err => console.log('Redis Client Error', err));
+
+client.connect(()=>{
+console.log("Redis connected successfully");
+});
+
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -32,8 +38,8 @@ mongoose.connection.on('error',(err)=>{
     console.error("There is an error:",err);
 })
 
-const PORT=config.port ;
-console.log(PORT);
+const PORT=config.port || 3005;
+
 
 
 app.use(express.json())
@@ -41,10 +47,12 @@ app.use(express.urlencoded({extended:true}))
 
 app.use('/house',houseRoute);
 app.use('/user',router);
-app.use('/payment',route)
+//app.use('/payment',route)
 
-app.listen(PORT,()=>{
+const server=app.listen(PORT,()=>{
     console.log(`Server is Running on Port ${PORT}`);
 });
+
+module.exports={app,server};
 
 
