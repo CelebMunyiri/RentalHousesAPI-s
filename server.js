@@ -10,13 +10,13 @@ const { router } = require('./Routes/authRoutes');
 const { route } = require('./Routes/paymentRoute');
 const app=express();
 
-const client=redis.createClient();
+// const client=redis.createClient();
 
-client.on('error', err => console.log('Redis Client Error', err));
+// client.on('error', err => console.log('Redis Client Error', err));
 
-client.connect(()=>{
-console.log("Redis connected successfully");
-});
+// client.connect(()=>{
+// console.log("Redis connected successfully");
+// });
 
 
 app.use(cors());

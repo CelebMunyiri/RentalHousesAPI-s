@@ -19,10 +19,11 @@
     "stripe": "^15.0.0",
     "supertest": "^6.3.4",
     "validate": "^5.2.0",
-    "validator": "^13.11.0"
+    "validator": "^13.11.0",
+    "web-push": "^3.6.7"
   },
   "scripts": {
-    "test":"jest --watch",
+    "test": "jest --watch",
     "start": "nodemon server.js",
     "dev": "nodemon server.js"
   },
