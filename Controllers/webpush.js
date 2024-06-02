@@ -1,7 +1,8 @@
 const webpush = require("web-push");
+const Subscription = require("../Models/subscription")
 
 webpush.setVapidDetails(
-    `mailto:${process.env.Nathan_Email}`,
+    `mailto:${process.env.My_Email}`,
     process.env.VAPID_PUBLIC_KEY,
     process.env.VAPID_PRIVATE_KEY
   );
