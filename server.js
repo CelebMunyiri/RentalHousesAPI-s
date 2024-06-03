@@ -8,6 +8,7 @@ const config = require('./Config/config');
 const { houseRoute } = require('./Routes/houseRoutes');
 const { router } = require('./Routes/authRoutes');
 const { route } = require('./Routes/paymentRoute');
+const { notificationRoute } = require('./Routes/notificationRoute')
 const app=express();
 
 // const client=redis.createClient();
@@ -47,7 +48,9 @@ app.use(express.urlencoded({extended:true}))
 
 app.use('/house',houseRoute);
 app.use('/user',router);
+app.use('/notification' ,notificationRoute);
 //app.use('/payment',route)
+
 
 const server=app.listen(PORT,()=>{
     console.log(`Server is Running on Port ${PORT}`);

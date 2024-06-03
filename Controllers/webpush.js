@@ -2,7 +2,7 @@ const webpush = require("web-push");
 const Subscription = require("../Models/subscription")
 
 webpush.setVapidDetails(
-    `mailto:${process.env.My_Email}`,
+    `mailto:${process.env.EMAIL}`,
     process.env.VAPID_PUBLIC_KEY,
     process.env.VAPID_PRIVATE_KEY
   );
@@ -46,3 +46,5 @@ const sendNotification = async (req, res) => {
       res.status(500).json({ success: false, message: 'Failed to send notifications', error: error.message });
     }
   };
+
+  module.exports = {subscribe,sendNotification}
