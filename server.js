@@ -48,7 +48,7 @@ app.use(express.urlencoded({extended:true}))
 
 app.use('/house',houseRoute);
 app.use('/user',router);
-app.use('/notification' ,notificationRoute);
+app.use('/notification',notificationRoute);
 //app.use('/payment',route)
 
 
