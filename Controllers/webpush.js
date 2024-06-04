@@ -32,12 +32,16 @@ const sendNotification = async (req, res) => {
       const userSubscriptions = await Subscription.find({ userId });
       // console.log(userSubscriptions);
       const payload = JSON.stringify({ title, body, });
+
+      const newNotification = new Notification({userId,
+        title,body,
+        subscription:userSubscriptions[0]._id});
+      newNotification.save();
   
       userSubscriptions.forEach(subscription => {
   
       
-        const newNotification = Notification.create({userId,title,body,subscription:subscription._id});
-         newNotification.save();
+       
         webpush.sendNotification(subscription.subscription, payload).catch(error => console.error('Error sending notification', error));
       });
   
