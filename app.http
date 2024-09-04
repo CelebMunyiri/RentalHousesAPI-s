@@ -1,20 +1,20 @@
 ### Register User API
-POST http://localhost:3003/user/register
+POST http://localhost:3001/user/register
 Content-Type: application/json
 
 {
     "username": "davydo",
-    "email": "dave@gmail.com",
+    "email": "davemunyiri@gmail.com",
     "role":"landlord",
     "password": "1234davy"
 }
 
 ### Login User API
-POST http://localhost:3003/user/login 
+POST http://localhost:3001/user/login 
 Content-Type: application/json
 
 {
- "email": "dave@gmail.com",
+ "email": "davemunyiri@gmail.com",
     "password": "1234davy"
 }
 
@@ -39,9 +39,9 @@ Content-Type: application/json
 
 
 ###GET ALL HOUSES API
-GET http://localhost:3003/house/allhouses
+GET http://localhost:3001/house/allhouses
 Content-Type: application/json
-token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRhdmVAZ21haWwuY29tIiwiaWF0IjoxNzEzODU4MTg5fQ.6R1KIRJbBAc-sYYeyBZkb7WZglnrlSc8xY_RDmNM8zk
+token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRhdmVtdW55aXJpQGdtYWlsLmNvbSIsImlhdCI6MTcyNDU3ODMzMX0.6gnxpidv5xwHz8j2UlxVSbn35Rg8Lh9fvfqQKTpscuw
 
 
 ###DELETE A HOUSE

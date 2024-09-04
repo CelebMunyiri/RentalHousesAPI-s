@@ -51,8 +51,9 @@ const loginUser=async(req,res)=>{
         }
         //creating a token
         const token =jwt.sign({_id: User._id,email:UserLogin.email},process.env.jwtsecret)
+        console.log("Endpoint has been hit")
 
-res.status(200).json({token})
+res.status(200).json({success:true,token:token})
     } else{
         res.status(401).json({error:"This Account has been deactivated"});
     }
