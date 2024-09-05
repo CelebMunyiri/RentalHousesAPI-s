@@ -24,7 +24,7 @@ const registerUser = async (req, res) => {
             newUser.save();
             sendEmail(email,'Welcome To HomeQuest','Registration Succesful, Welcome to HomeQuest');
 
-            res.status(200).send(success(newUser,"User Registered Successfully"));
+            res.status(200).json({success:true, message:"User Registered Successfully"});
         }
         
     } catch (error) {
@@ -50,7 +50,7 @@ const loginUser=async(req,res)=>{
             return res.status(401).json({error:"Invalid Password"});
         }
         //creating a token
-        const token =jwt.sign({_id: User._id,email:UserLogin.email},process.env.jwtsecret)
+        const token =jwt.sign({_id: UserLogin._id,email:UserLogin.email, role:UserLogin.role,username: UserLogin.username},process.env.jwtsecret)
         console.log("Endpoint has been hit")
 
 res.status(200).json({success:true,token:token})
