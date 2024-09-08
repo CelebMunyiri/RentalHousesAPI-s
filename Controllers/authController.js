@@ -51,7 +51,7 @@ const loginUser=async(req,res)=>{
         }
         //creating a token
         const token =jwt.sign({_id: UserLogin._id,email:UserLogin.email, role:UserLogin.role,username: UserLogin.username},process.env.jwtsecret)
-        console.log("Endpoint has been hit")
+       
 
 res.status(200).json({success:true,token:token})
     } else{
