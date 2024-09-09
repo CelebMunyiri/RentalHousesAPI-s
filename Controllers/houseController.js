@@ -16,7 +16,7 @@ const createHouse=async(req,res)=>{
          return  res.status(401).json({message:"House Already exists, add one that does not exist"});
         }
 
-const newHouse=await house.create({name,cost,description,images,location});
+const newHouse=await house.create({name,cost,description,images,location,poster});
 
 await newHouse.save();
 
