@@ -1,20 +1,20 @@
 ### Register User API
-POST http://localhost:3003/user/register
+POST http://localhost:3001/user/register
 Content-Type: application/json
 
 {
-    "username": "davydo",
-    "email": "dave@gmail.com",
-    "role":"landlord",
+    "username": "davyddo",
+    "email": "davemwangi@gmail.com",
+    "role":"tenant",
     "password": "1234davy"
 }
 
 ### Login User API
-POST http://localhost:3003/user/login 
+POST http://localhost:3001/user/login 
 Content-Type: application/json
 
 {
- "email": "dave@gmail.com",
+ "email": "davemunyiri@gmail.com",
     "password": "1234davy"
 }
 
@@ -25,23 +25,23 @@ PUT http://localhost:3003/user/deactivate/6618e71b29af153c4058a933
 Content-Type: application/json
 
 ### Create house API
-POST http://localhost:3003/house/newHouse/
+POST http://localhost:3001/house/newHouse/
 Content-Type: application/json
 
 {
-"name":"Bethsaida",
+"name":"StageMall Apartments",
 "cost":21000,
-"description":"Well constructed 1 bedrooms for family",
+"description":"Well constructed 1 bedrooms for family and other people",
 "location":"Lower Kabete",
-"images":["https://cdn.pixabay.com/photo/2016/09/19/17/16/beautiful-home-1680793_640.jpg","house2.jpg"]
+"images":["https://cdn.pixabay.com/photo/2016/09/19/17/16/beautiful-home-1680793_640.jpg","https://cdn.pixabay.com/photo/2016/09/19/17/16/beautiful-home-1680793_640.jpg","https://cdn.pixabay.com/photo/2016/09/19/17/16/beautiful-home-1680793_640.jpg","https://cdn.pixabay.com/photo/2016/09/19/17/16/beautiful-home-1680793_640.jpg"]
 }
 
 
 
 ###GET ALL HOUSES API
-GET http://localhost:3003/house/allhouses
+GET http://localhost:3001/house/allhouses
 Content-Type: application/json
-token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRhdmVAZ21haWwuY29tIiwiaWF0IjoxNzEzODU4MTg5fQ.6R1KIRJbBAc-sYYeyBZkb7WZglnrlSc8xY_RDmNM8zk
+token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRhdmVtdW55aXJpQGdtYWlsLmNvbSIsImlhdCI6MTcyNDU3ODMzMX0.6gnxpidv5xwHz8j2UlxVSbn35Rg8Lh9fvfqQKTpscuw
 
 
 ###DELETE A HOUSE
@@ -61,4 +61,4 @@ userId:6618fe685380540cb07b043d
     "name":"Epic gathiga Ridge",
     "cost":21000,
     "description":"Well constructed 1 bedrooms for family and single family"
-}
+}  

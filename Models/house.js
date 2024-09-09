@@ -14,7 +14,11 @@ const houseSchema=new mongoose.Schema({
         
     },
     images:{type:Array,of:String},
-    location:{type:String}
+    location:{type:String},
+    poster:{
+        type:mongoose.SchemaTypes.ObjectId,
+        ref:'User'
+    }
 });
 
 module.exports=mongoose.model('houses',houseSchema);
