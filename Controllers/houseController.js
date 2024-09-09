@@ -112,13 +112,28 @@ if(!deletedHouse) {
 }
 res.status(200).json({message:"House deleted successfully"});
     } catch(err){
-console.error(err.message);
+
 res.status(500).json({message:"Failed to delete house"});
+    }
+}
+
+
+//get houses by poster
+const getHousesByPoster = async(req,res)=>{
+    try{
+        const landlordId=req.params.id;
+        const houses = await house.find({poster:landlordId});
+
+        res.status(200).json({success:true,houses:houses})
+   
+    } catch(err){
+        res.status(500).json({message:"Internal Server error"})
     }
 }
 module.exports={createHouse,
     updateHouse,
     getHouses,
     getHouseById,
-removeHouse
+removeHouse,
+getHousesByPoster
 }
