@@ -1,5 +1,6 @@
 const webpush = require("web-push");
 const Subscription = require("../Models/subscription")
+const Notification = require("../Models/notification")
 
 webpush.setVapidDetails(
     `mailto:${process.env.EMAIL}`,
@@ -17,38 +18,46 @@ const subscribe = async(req,res)=>{
        const newSubscription = new Subscription({ userId, subscription });
        await newSubscription.save();
      }
-     res.status(200).json({sucess:true, message:"Device registered as success"});
+    
+     res.status(200).json({success:true, message:"Device registered as success"});
     } catch(error){
         console.error(error);
         res.status(500).json({message:"Internal Server error"});
     }
 }
 
-const sendNotification = async (req, res) => {
-    let { userId, title, body = {} } = req.body;
-    // console.log({ userId, title, body })
-  
-    try {
-      const userSubscriptions = await Subscription.find({ userId });
-      // console.log(userSubscriptions);
-      const payload = JSON.stringify({ title, body, });
+const sendNotification = async (userId, title, body) => {
+  try {
+    // Fetch user subscriptions
+    const userSubscriptions = await Subscription.find({ userId });
 
-      const newNotification = new Notification({userId,
-        title,body,
-        subscription:userSubscriptions[0]._id});
-      newNotification.save();
-  
-      userSubscriptions.forEach(subscription => {
-  
-      
-       
-        webpush.sendNotification(subscription.subscription, payload).catch(error => console.error('Error sending notification', error));
-      });
-  
-      res.status(200).json({ success: true });
-    } catch (error) {
-      res.status(500).json({ success: false, message: 'Failed to send notifications', error: error.message });
+    if (userSubscriptions.length === 0) {
+      throw new Error('No subscriptions found for the user.');
     }
-  };
 
+    // Prepare the notification payload
+    const payload = JSON.stringify({ title, body });
+
+    // Optionally, create a new Notification entry in your database
+    const newNotification = new Notification({
+      userId,
+      title,
+      body,
+      subscription: userSubscriptions[0]._id, // Saving only the first subscription for record-keeping
+    });
+    await newNotification.save();
+
+    // Send notifications to all user subscriptions
+    userSubscriptions.forEach((subscription) => {
+      webpush.sendNotification(subscription.subscription, payload).catch((error) => {
+        console.error('Error sending notification', error);
+      });
+    });
+
+    return { success: true };
+  } catch (error) {
+    console.error('Failed to send notifications:', error.message);
+    return { success: false, message: error.message };
+  }
+};
   module.exports = {subscribe,sendNotification}

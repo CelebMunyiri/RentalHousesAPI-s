@@ -7,4 +7,4 @@ notificationRoute.post("/subscribe",subscribe);
 
 notificationRoute.post("/sendNotification", sendNotification)
 
-module.exports = {notificationRoute};
+module.exports = { notificationRoute };

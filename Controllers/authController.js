@@ -1,6 +1,7 @@
 const bcrypt=require('bcrypt');
 const jwt=require('jsonwebtoken');
 const User = require('../Models/auth');
+const { sendNotification } = require('./webpush')
 const dotenv=require('dotenv');
 const {success,error}=require('../Utils/responses');
 const { sendEmail } = require('../emails/email');
@@ -50,7 +51,10 @@ const loginUser=async(req,res)=>{
             return res.status(401).json({error:"Invalid Password"});
         }
         //creating a token
+       
         const token =jwt.sign({_id: UserLogin._id,email:UserLogin.email, role:UserLogin.role,username: UserLogin.username},process.env.jwtsecret)
+
+       // await sendNotification(UserLogin._id,'Welcome To HomeQuest','welcome again to HomeQuest and let us find you a perfect house');
        
 
 res.status(200).json({success:true,token:token})

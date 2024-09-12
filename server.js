@@ -9,6 +9,7 @@ const { houseRoute } = require('./Routes/houseRoutes');
 const { router } = require('./Routes/authRoutes');
 const { route } = require('./Routes/paymentRoute');
 const { notificationRoute } = require('./Routes/notificationRoute')
+
 const app=express();
 
 // const client=redis.createClient();
@@ -19,7 +20,7 @@ const app=express();
 // console.log("Redis connected successfully");
 // });
 
-
+app.use(express.json()); 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public', { 'Content-Type': 'application/javascript' }));

@@ -1,5 +1,6 @@
 const house = require("../Models/house");
 const dotenv = require('dotenv');
+const { sendNotification } = require('./webpush')
 const {success,error}=require('../Utils/responses')
 dotenv.config();
 
@@ -79,6 +80,8 @@ const getHouses = async(req,res)=>{
         if(!allHouses || allHouses.length==0) {
             res.status(404).send({message:"Houses not found"});
         }
+
+        await sendNotification('66dd6fb331dd623d2bb6f672','Welcome To HomeQuest','welcome again to HomeQuest and let us find you a perfect house');
         res.status(200).json({allHouses});
         
     } catch (error) {
