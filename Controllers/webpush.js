@@ -42,8 +42,7 @@ const sendNotification = async (userId, title, body) => {
     const newNotification = new Notification({
       userId,
       title,
-      body,
-      subscription: userSubscriptions[0]._id, // Saving only the first subscription for record-keeping
+      body 
     });
     await newNotification.save();
 
