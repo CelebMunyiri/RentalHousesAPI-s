@@ -18,7 +18,8 @@ const houseSchema=new mongoose.Schema({
     poster:{
         type:mongoose.SchemaTypes.ObjectId,
         ref:'User'
-    }
+    },
+    is_vacant:{type:Boolean}
 });
 
 module.exports=mongoose.model('houses',houseSchema);
