@@ -81,7 +81,7 @@ const getHouses = async(req,res)=>{
             res.status(404).send({message:"Houses not found"});
         }
 
-        await sendNotification('66dd6fb331dd623d2bb6f672','Welcome To HomeQuest','welcome again to HomeQuest and let us find you a perfect house');
+       // await sendNotification('66dd6fb331dd623d2bb6f672','Welcome To HomeQuest','welcome again to HomeQuest and let us find you a perfect house');
         res.status(200).json({allHouses});
         
     } catch (error) {
@@ -133,6 +133,8 @@ const getHousesByPoster = async(req,res)=>{
         res.status(500).json({message:"Internal Server error"})
     }
 }
+
+
 module.exports={createHouse,
     updateHouse,
     getHouses,
