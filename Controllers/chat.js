@@ -15,6 +15,10 @@ chatModule.io.on("connection",socket=>{
     socket.on("chatMessage",data=>{
         const {text, attachment,roomId} = data; 
     socket.to(roomId).emit(data)   })
+
+    socket.on('typing',roomId=>{
+        socket.to(roomId).emit('typing')
+    })
 })
 
 module.exports = { chatModule }
