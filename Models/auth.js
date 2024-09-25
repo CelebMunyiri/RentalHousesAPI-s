@@ -17,7 +17,12 @@ const userSchema=new mongoose.Schema({
     },
     password:{type:String,required:true},
     _is_active:{type:Boolean,default:true},
-    role:{type:String,required:true,enum:['admin','tenant','landlord'],dafault:'user'}
+    role:{type:String,required:true,
+    enum:['admin','tenant','poster'],
+    dafault:'tenant'},
+    phone:{
+      type: String
+    }
   });
 
 module.exports=mongoose.model('users',userSchema)
