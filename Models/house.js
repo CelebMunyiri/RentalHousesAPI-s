@@ -19,7 +19,15 @@ const houseSchema=new mongoose.Schema({
         type:mongoose.SchemaTypes.ObjectId,
         ref:'User'
     },
-    is_vacant:{type:Boolean}
+    is_vacant:{type:Boolean,
+        default:false
+    },
+    is_viewed:{type: Boolean,
+        default:false
+    },
+    viewer:{
+        type: mongoose.SchemaTypes.ObjectId
+    }
 });
 
 module.exports=mongoose.model('houses',houseSchema);

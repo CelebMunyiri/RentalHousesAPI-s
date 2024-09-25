@@ -10,14 +10,14 @@ dotenv.config();
 
 const createHouse=async(req,res)=>{
     try {
-        const {name,cost,description,images,location,poster}=req.body;
-        const isHouseinDB=await house.findOne({name});
+        const body = req.body;
+        const isHouseinDB=await house.findOne({name:body.name});
 
        if(isHouseinDB){
          return  res.status(401).json({message:"House Already exists, add one that does not exist"});
         }
 
-const newHouse=await house.create({name,cost,description,images,location,poster});
+const newHouse=await house.create(body);
 
 await newHouse.save();
 
