@@ -1,5 +1,5 @@
 const Chat = require('../Models/chat')
-const socketIO = require('socket-io')
+const socketIO = require('socket.io')
 
 const io = socketIO();
 
