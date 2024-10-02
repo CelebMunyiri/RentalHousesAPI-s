@@ -10,8 +10,9 @@ const { router } = require('./Routes/authRoutes');
 const { route } = require('./Routes/paymentRoute');
 const { notificationRoute } = require('./Routes/notificationRoute')
 const { chatModule } = require("./Controllers/chat")
+const http =require('http');
 
-const app=express();
+const app = express();
 
 // const client=redis.createClient();
 
@@ -22,7 +23,11 @@ const app=express();
 // });
 
 app.use(express.json()); 
-app.use(cors());
+app.use(cors({
+    origin: 'http://localhost:5173', // Allow your frontend's origin
+  methods: ['GET', 'POST'], // Allowed HTTP methods
+  credentials: true // Allow cookies and credentials if needed
+}));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public', { 'Content-Type': 'application/javascript' }));
 
@@ -53,8 +58,11 @@ app.use('/user',router);
 app.use('/notification',notificationRoute);
 //app.use('/payment',route)
 
+const server = http.createServer(app);
 
-const server=app.listen(PORT,()=>{
+chatModule.io.attach(server);
+
+server.listen(PORT,()=>{
     console.log(`Server is Running on Port ${PORT}`);
 });
 
