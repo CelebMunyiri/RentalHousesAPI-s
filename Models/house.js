@@ -14,7 +14,9 @@ const houseSchema=new mongoose.Schema({
         
     },
     images:{type:Array,of:String},
-    location:{type:String},
+    location:{
+        type:String
+    },
     poster:{
         type:mongoose.SchemaTypes.ObjectId,
         ref:'User'
@@ -22,11 +24,16 @@ const houseSchema=new mongoose.Schema({
     is_vacant:{type:Boolean,
         default:false
     },
-    is_viewed:{type: Boolean,
+    is_viewed:{
+        type: Boolean,
         default:false
     },
     viewer:{
         type: mongoose.SchemaTypes.ObjectId
+    },
+    is_paid_for:{
+        type: Boolean,
+        default: false
     }
 });
 

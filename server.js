@@ -10,6 +10,7 @@ const { router } = require('./Routes/authRoutes');
 const { route } = require('./Routes/paymentRoute');
 const { notificationRoute } = require('./Routes/notificationRoute')
 const { chatModule } = require("./Controllers/chat")
+const chatRoute = require("./Routes/chatRoute")
 const http =require('http');
 
 const app = express();
