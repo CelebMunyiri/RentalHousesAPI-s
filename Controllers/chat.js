@@ -1,5 +1,6 @@
 const Chat = require('../Models/chat');
 const socketIO = require('socket.io');
+const cors = require("cors");
 
 const chatModule = {};
 chatModule.io = socketIO();  // Initialize socket.io
@@ -14,7 +15,7 @@ chatModule.io.on('connection', (socket) => {
         onlineUsers.set(userId, socket.id);  // Map userId to socketId
         socket.join(roomId);  // Join the chat room
         console.log(`${userId} joined room ${roomId}`);
-        
+
         // Notify others in the room that the user is online
         socket.to(roomId).emit('userOnline', { userId });
     });
@@ -24,12 +25,15 @@ chatModule.io.on('connection', (socket) => {
         const { message, sender, receiver, roomId } = data;
         
         // Save the chat message in the database
-        const chat = await Chat.create({ message, sender, receiver });
-        console.log(data.message)
-        await chat.save();
-
-        // Emit the message to others in the room
-        socket.to(roomId).emit('receiveMessage', data);
+        try {
+            const chat = await Chat.create({ message, sender, receiver });
+            console.log(`Message: ${data.message} from ${sender} to ${receiver}`);
+            
+            // Emit the message to others in the room
+            socket.to(roomId).emit('receiveMessage', data);
+        } catch (error) {
+            console.error('Error saving message:', error);
+        }
     });
 
     // Listen for typing event
@@ -47,10 +51,9 @@ chatModule.io.on('connection', (socket) => {
         });
 
         // Optionally, emit an event to notify others of user disconnection
+        console.log('Updated online users:', Array.from(onlineUsers.keys()));
     });
 });
-
-
 
 // Fetch all messages between two users
 const getMessages = async (req, res) => {
@@ -83,5 +86,4 @@ const saveMessage = async (req, res) => {
     }
 };
 
-
-module.exports = { chatModule,getMessages,saveMessage };
+module.exports = { chatModule, getMessages, saveMessage };
