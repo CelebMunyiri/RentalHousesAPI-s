@@ -20,7 +20,8 @@
     "supertest": "^6.3.4",
     "validate": "^5.2.0",
     "validator": "^13.11.0",
-    "web-push": "^3.6.7"
+    "web-push": "^3.6.7",
+    "winston": "^3.15.0"
   },
   "scripts": {
     "test": "jest --watch",

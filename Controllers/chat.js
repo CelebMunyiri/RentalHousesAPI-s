@@ -1,6 +1,7 @@
 const Chat = require('../Models/chat');
 const socketIO = require('socket.io');
 const cors = require("cors");
+const { logger } = require("../Utils/logger")
 
 const chatModule = {};
 chatModule.io = socketIO();  // Initialize socket.io
@@ -8,7 +9,8 @@ chatModule.io = socketIO();  // Initialize socket.io
 let onlineUsers = new Map();  // Track online users
 
 chatModule.io.on('connection', (socket) => {
-    console.log('User connected:', socket.id);
+   // console.log('User connected:', socket.id);
+   logger.info("Connection established");
 
     // Handle user joining a chat room
     socket.on('joinRoom', ({ userId, roomId }) => {

@@ -10,6 +10,7 @@ const { notificationRoute } = require('./Routes/notificationRoute');
 const { chatModule } = require('./Controllers/chat');
 const chatRoute = require('./Routes/chatRoute');
 const http = require('http');
+const { logger } = require("./Utils/logger")
 
 const app = express();
 
@@ -59,7 +60,7 @@ chatModule.io.attach(server);
 const PORT = config.port || 3005;
 
 server.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+    logger.info("Connected to db");
 });
 
 module.exports = { app, server };
